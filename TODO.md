@@ -13,7 +13,7 @@
 
 OR
 
-# SQALCHEMY
+- SQALCHEMY
 
 # Necessary modules
 - Pandas -> DataFrame
