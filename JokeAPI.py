@@ -7,18 +7,21 @@ def req(category, format = "json", black_list = "sexist,nsfw", type = "single,tw
     full_req = URL + category + "?" + "format=" + format + "&" + "blacklistFlags=" + black_list + "&" + "type=" + type + "&lang=de&" + "amount=" + amount 
     return full_req
 
-res = requests.get(req(category="Programming"))
-res_json = json.loads(res.text)
-
-def joke(response):
-    if res_json["type"] == "twopart":
-        setup = res_json["setup"]
-        delivery = res_json["delivery"]
+def Joke(response):
+    if response["type"] == "twopart":
+        setup = response["setup"]
+        delivery = response["delivery"]
         joke = setup + "\n" + delivery
-    elif res_json["type"] == "single":
-        joke = res_json["joke"]
+    elif response["type"] == "single":
+        joke = response["joke"]
     return joke
 
-joke = joke(res_json)
-category = res_json["category"]
-print(joke, category)
+def get_joke(category = ""):
+    res = requests.get(req(category=category))
+    res_json = json.loads(res.text)
+
+    joke = Joke(res_json)
+    category = res_json["category"]
+    print(joke, category)
+
+get_joke(category="Programming")
