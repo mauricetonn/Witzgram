@@ -1,5 +1,3 @@
-from re import sub
-from nbformat import read
 import requests
 import json
 
@@ -11,7 +9,7 @@ get_URL = URL = 'https://v2.jokeapi.dev/joke/'
 submit_URL = 'https://v2.jokeapi.dev/submit?dry-run' # Use for Testing
 # submit_URL = 'https://v2.jokeapi.dev/submit        # Use for real Application
 
-def req(category = "Any", format = "json", black_list = "sexist,nsfw", type = "single", amount = "1" ):
+def __req(category = "Any", format = "json", black_list = "sexist,nsfw", type = "single", amount = "1" ):
     """
     Function to generate HTTP Request
 
@@ -33,7 +31,7 @@ def req(category = "Any", format = "json", black_list = "sexist,nsfw", type = "s
     full_req = URL + category + "?" + "format=" + format + "&" + "blacklistFlags=" + black_list + "&" + "type=" + type + "&lang=de&" + "amount=" + amount 
     return full_req
 
-def Joke(response):
+def __convert(response):
     """
     Converts two part jokes to single jokes
 
@@ -43,8 +41,8 @@ def Joke(response):
     Returns:
         str: combined joke
     Test:
-        1) lets
-        2) see
+        1) joke = __convert(res_json) (res_json with setup and delivery) should always return a single string
+        2) joke = __convert(res_json) (res_json with joke) should always return a single string
     """
     if response["type"] == "twopart":
         setup = response["setup"]
@@ -68,23 +66,16 @@ def get_joke(category = "Any"):
         1) joke, category = get_joke(category="Programming") should return a random Joke and the Category "Programming"
         2) joke, category = get_joke() should return a random Joke from a random Category
     """
-    res = requests.get(req(category=category))
+    res = requests.get(__req(category=category))
     res_json = json.loads(res.text)
 
-    joke = Joke(res_json)
+    joke = __convert(res_json)
     category = res_json["category"]
     print(joke, category)
 
     return joke, category
 
-joke, category = get_joke()
-print(joke)
-print(category)
-
-
-
-
-def payload(category, joke, language, nsfw=True, religious= False, political= True,racist= False,sexist= False,explicit= False):
+def __payload(category, joke, language, nsfw=True, religious= False, political= True,racist= False,sexist= False,explicit= False):
     """
     Generate Payload for POST-Request
 
@@ -102,6 +93,10 @@ def payload(category, joke, language, nsfw=True, religious= False, political= Tr
 
     Returns:
         json: Returns JSON-Object for Payload
+    Tests:
+        1) data = __payload(category, joke, language) should return correct JSON 
+        2) 
+
     """
     data = {
     "formatVersion": 3,
@@ -141,10 +136,13 @@ def submit_joke(category, joke, language,  nsfw=True, religious= False, politica
         explicit (bool, optional): Explicit Jokes. Defaults to False.
     Returns:
         requests.models.Response: Response from the POST Request
+    Tests:
+        1) response = submit_joke("Programming", "Wie viele Programmierer braucht man, um eine Gluehbirne zu wechseln? Keinen einzigen, ist ein Hardware-Problem!", "de") should return Code: 201
+        2) 
     """
-    data = payload(category, joke, language,  nsfw=True, religious= False, political= True,racist= False,sexist= False,explicit= False)
+    data = __payload(category, joke, language,  nsfw=True, religious= False, political= True,racist= False,sexist= False,explicit= False)
     response = requests.post(url = submit_URL, data = data)
     return response
 
-response = submit_joke("Programming", "Wie viele Programmierer braucht man, um eine Gluehbirne zu wechseln? Keinen einzigen, ist ein Hardware-Problem!", "de")
-print(response.text)
+# response = submit_joke("Programming", "Wie viele Programmierer braucht man, um eine Gluehbirne zu wechseln? Keinen einzigen, ist ein Hardware-Problem!", "de")
+# print(response.text)
