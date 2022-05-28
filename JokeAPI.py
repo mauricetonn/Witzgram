@@ -85,6 +85,24 @@ print(category)
 
 
 def payload(category, joke, language, nsfw=True, religious= False, political= True,racist= False,sexist= False,explicit= False):
+    """
+    Generate Payload for POST-Request
+
+    Args:
+        category (str): category (str): Sets the joke-category. Avaiable Categories: "Any", "Misc", "Programming", "Dark", "Pun", "Spooky", "Christmas". Defaults to "Any".
+        joke (str): Joke Text
+        language (str): Joke Language. Available Languages: "cs", "de", "en", "es", "fr", "pt"
+        Blacklist Params: 
+        nsfw (bool, optional): Not Safe for Work Jokes. Defaults to True.
+        religious (bool, optional): Religious Jokes. Defaults to False.
+        political (bool, optional): Political Jokes. Defaults to True.
+        racist (bool, optional): Racist Jokes. Defaults to False.
+        sexist (bool, optional): Sexist Jokes. Defaults to False.
+        explicit (bool, optional): Explicit Jokes. Defaults to False.
+
+    Returns:
+        json: Returns JSON-Object for Payload
+    """
     data = {
     "formatVersion": 3,
     "category": category,
@@ -107,10 +125,26 @@ def payload(category, joke, language, nsfw=True, religious= False, political= Tr
 
 
 def submit_joke(category, joke, language,  nsfw=True, religious= False, political= True,racist= False,sexist= False,explicit= False):
+    """
+    Submits Joke to JokeAPI
+
+    Args:
+        category (str): category (str): Sets the joke-category. Avaiable Categories: "Any", "Misc", "Programming", "Dark", "Pun", "Spooky", "Christmas". Defaults to "Any".
+        joke (str): Joke Text
+        language (str): Joke Language. Available Languages: "cs", "de", "en", "es", "fr", "pt"
+        Blacklist Params: 
+        nsfw (bool, optional): Not Safe for Work Jokes. Defaults to True.
+        religious (bool, optional): Religious Jokes. Defaults to False.
+        political (bool, optional): Political Jokes. Defaults to True.
+        racist (bool, optional): Racist Jokes. Defaults to False.
+        sexist (bool, optional): Sexist Jokes. Defaults to False.
+        explicit (bool, optional): Explicit Jokes. Defaults to False.
+    Returns:
+        requests.models.Response: Response from the POST Request
+    """
     data = payload(category, joke, language,  nsfw=True, religious= False, political= True,racist= False,sexist= False,explicit= False)
-    print(data)
     response = requests.post(url = submit_URL, data = data)
-    print(response.text)
+    return response
 
-# submit_joke("Programming", "Wie viele Programmierer braucht man, um eine Gluehbirne zu wechseln? Keinen einzigen, ist ein Hardware-Problem!", "de")
-
+response = submit_joke("Programming", "Wie viele Programmierer braucht man, um eine Gluehbirne zu wechseln? Keinen einzigen, ist ein Hardware-Problem!", "de")
+print(response.text)
