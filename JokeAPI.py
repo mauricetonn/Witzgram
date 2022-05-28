@@ -1,12 +1,20 @@
+"""
+Added JokeAPI.py to handle gets and submits to the jokeapi database provided by https://jokeapi.dev/
+Does basic POST and GET Requests
+
+    author: Maurice Tonn
+    date: 28.05.2022
+    version: 0.0.1
+    license: free
+"""
+
 import requests
 import json
 
-from sqlalchemy import false, true 
-
 # Declaring Variables for getting and submitting Jokes
 
-get_URL = URL = 'https://v2.jokeapi.dev/joke/'
-submit_URL = 'https://v2.jokeapi.dev/submit?dry-run' # Use for Testing
+__get_URL = 'https://v2.jokeapi.dev/joke/'
+__submit_URL = 'https://v2.jokeapi.dev/submit?dry-run' # Use for Testing
 # submit_URL = 'https://v2.jokeapi.dev/submit        # Use for real Application
 
 def __req(category = "Any", format = "json", black_list = "sexist,nsfw", type = "single", amount = "1" ):
@@ -28,7 +36,7 @@ def __req(category = "Any", format = "json", black_list = "sexist,nsfw", type = 
         2) 2) URL = req("Programming", "json", "sexist", "single", "1") should return 'https://v2.jokeapi.dev/joke/Programming?format=json&blacklistFlags=sexist&type=single&lang=de&amount=1'
     """
     # 'https://v2.jokeapi.dev/joke/Any?format=json&blacklistFlags=nsfw,sexist&type=single&lang=de&amount=1'
-    full_req = URL + category + "?" + "format=" + format + "&" + "blacklistFlags=" + black_list + "&" + "type=" + type + "&lang=de&" + "amount=" + amount 
+    full_req = __get_URL + category + "?" + "format=" + format + "&" + "blacklistFlags=" + black_list + "&" + "type=" + type + "&lang=de&" + "amount=" + amount 
     return full_req
 
 def __convert(response):
@@ -71,7 +79,6 @@ def get_joke(category = "Any"):
 
     joke = __convert(res_json)
     category = res_json["category"]
-    print(joke, category)
 
     return joke, category
 
@@ -141,7 +148,7 @@ def submit_joke(category, joke, language,  nsfw=True, religious= False, politica
         2) 
     """
     data = __payload(category, joke, language,  nsfw=True, religious= False, political= True,racist= False,sexist= False,explicit= False)
-    response = requests.post(url = submit_URL, data = data)
+    response = requests.post(url = __submit_URL, data = data)
     return response
 
 # response = submit_joke("Programming", "Wie viele Programmierer braucht man, um eine Gluehbirne zu wechseln? Keinen einzigen, ist ein Hardware-Problem!", "de")
