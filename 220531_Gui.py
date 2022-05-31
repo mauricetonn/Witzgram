@@ -1,6 +1,13 @@
+"""
+Gui to interakt with the User
+
+    author: Simon Klingler
+    date: 31.05.2022
+    version: 0.0.1
+    license: free
+"""
 
 import tkinter as tk
-from turtle import down, left, width
 
 def button_interaction(variant=""):
     if variant == "":
