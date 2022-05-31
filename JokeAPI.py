@@ -36,7 +36,7 @@ def __req(category = "Any", format = "json", black_list = "sexist,nsfw", type = 
         2) 2) URL = req("Programming", "json", "sexist", "single", "1") should return 'https://v2.jokeapi.dev/joke/Programming?format=json&blacklistFlags=sexist&type=single&lang=de&amount=1'
     """
     # 'https://v2.jokeapi.dev/joke/Any?format=json&blacklistFlags=nsfw,sexist&type=single&lang=de&amount=1'
-    full_req = __get_URL + category + "?" + "format=" + format + "&" + "blacklistFlags=" + black_list + "&" + "type=" + type + "&lang=de&" + "amount=" + amount 
+    full_req = __get_URL + category + "?" + "format=" + format + "&" + "blacklistFlags=" + black_list + "&" + "type=" + type + "&lang=en&" + "amount=" + amount 
     return full_req
 
 def __convert(response):
@@ -52,6 +52,7 @@ def __convert(response):
         1) joke = __convert(res_json) (res_json with setup and delivery) should always return a single string
         2) joke = __convert(res_json) (res_json with joke) should always return a single string
     """
+    print(response)
     if response["type"] == "twopart":
         setup = response["setup"]
         delivery = response["delivery"]
