@@ -33,6 +33,9 @@ main_window = tk.Tk()
 main_window.title("Witzgram")
 main_window.geometry("800x400")
 
+main_window.minsize("800x400")
+main_window.maxsize("800x400")
+
 my_frame = tk.Frame(main_window)
 my_frame.grid()
 
