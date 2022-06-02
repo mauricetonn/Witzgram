@@ -8,10 +8,7 @@ Gui to interakt with the User
 """
 
 import tkinter as tk
-from turtle import bgcolor
 from PIL import Image, ImageTk
-from numpy import var
-from sqlalchemy import column
 import JokeAPI 
 import DatabaseAPI
 import os
