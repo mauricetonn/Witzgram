@@ -15,7 +15,7 @@ import json
 
 __get_URL = 'https://v2.jokeapi.dev/joke/'
 __submit_URL = 'https://v2.jokeapi.dev/submit?dry-run' # Use for Testing
-# submit_URL = 'https://v2.jokeapi.dev/submit        # Use for real Application
+# __submit_URL = 'https://v2.jokeapi.dev/submit        # Use for real Application
 
 def __req(category = "Any", format = "json", black_list = "sexist,nsfw", type = "single", amount = "1" ):
     """
@@ -143,7 +143,7 @@ def submit_joke(category, joke, language,  nsfw=True, religious= False, politica
     Submits Joke to JokeAPI
 
     Args:
-        category (str): category (str): Sets the joke-category. Avaiable Categories: "Any", "Misc", "Programming", "Dark", "Pun", "Spooky", "Christmas". Defaults to "Any".
+        category (str): category (str): Sets the joke-category. Avaiable Categories: "Misc", "Programming", "Dark", "Pun", "Spooky", "Christmas". Defaults to "Any".
         joke (str): Joke Text
         language (str): Joke Language. Available Languages: "cs", "de", "en", "es", "fr", "pt"
         Blacklist Params: 
@@ -161,7 +161,8 @@ def submit_joke(category, joke, language,  nsfw=True, religious= False, politica
     """
     data = __payload(category, joke, language,  nsfw=True, religious= False, political= True,racist= False,sexist= False,explicit= False)
     response = requests.post(url = __submit_URL, data = data)
-    return response
+    print("Server responded:", response.text)
+
 
 # response = submit_joke("Programming", "Wie viele Programmierer braucht man, um eine Gluehbirne zu wechseln? Keinen einzigen, ist ein Hardware-Problem!", "de")
 # print(response.text)

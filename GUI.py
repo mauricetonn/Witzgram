@@ -7,16 +7,13 @@ Gui to interakt with the User
     license: free
 """
 
+from time import sleep
 import tkinter as tk
 from PIL import Image, ImageTk
+from numpy import var
 import JokeAPI 
 import DatabaseAPI
 import os
-
-if os.path.isfile("witzeBank.db"):
-    pass
-else:
-    DatabaseAPI.setup()
 
 # variables to handle the acces to same jokes at different places
 _current_joke = JokeAPI.get_joke("Any")[0]
@@ -96,9 +93,11 @@ def get_joke():
     my_label_joke.configure(text = _current_joke)
 
 def submit_joke_db():
-    DatabaseAPI.add_joke(joke = my_entry_own_joke.get())
+    DatabaseAPI.add_joke(joke = my_entry_own_joke.get(), category=clicked_submit.get())
 def submit_joke_api():
-    pass
+    print(nsfw.get())
+    JokeAPI.submit_joke(category=clicked_submit.get(), joke=my_entry_own_joke.get(), nsfw=nsfw.get(),
+     religious=religious.get(), political=political.get(), racist=racist.get(), sexist=sexist.get(), explicit=explicit.get(), language = "en")
 
 def button_interaction(variant=""):
     """
@@ -161,7 +160,7 @@ my_cb_subframe.grid(row=1, column=1)
 options = [
     "Any", "Misc", "Programming", "Dark", "Pun", "Spooky", "Christmas", "Favorites"
 ]
-options_submit = options = [
+options_submit = [
     "Misc", "Programming", "Dark", "Pun", "Spooky", "Christmas"
 ]
 # datatype of menu text
@@ -207,12 +206,19 @@ my_label_own_joke = tk.Label(my_submit_joke_subframe, text="Submit your own Joke
 my_entry_own_joke = tk.Entry(my_submit_joke_subframe, bd=5, width=40)
 
 # CheckBoxes
-my_cb_nsfw = tk.Checkbutton(my_cb_subframe, text="NSFW", onvalue=1, offvalue=0)
-my_cb_religious = tk.Checkbutton(my_cb_subframe, text="Religious", onvalue=1, offvalue=0)
-my_cb_political = tk.Checkbutton(my_cb_subframe, text="Political", onvalue=1, offvalue=0)
-my_cb_racist = tk.Checkbutton(my_cb_subframe, text="Racist", onvalue=1, offvalue=0)
-my_cb_sexist = tk.Checkbutton(my_cb_subframe, text="Sexist", onvalue=1, offvalue=0)
-my_cb_explicit = tk.Checkbutton(my_cb_subframe, text="Explicit", onvalue=1, offvalue=0)
+nsfw = tk.BooleanVar()
+religious = tk.BooleanVar()
+political = tk.BooleanVar()
+racist = tk.BooleanVar()
+sexist = tk.BooleanVar()
+explicit = tk.BooleanVar()
+
+my_cb_nsfw = tk.Checkbutton(my_cb_subframe, variable=nsfw, text="NSFW", onvalue=True, offvalue=False)
+my_cb_religious = tk.Checkbutton(my_cb_subframe, variable=religious, text="Religious", onvalue=True, offvalue=False)
+my_cb_political = tk.Checkbutton(my_cb_subframe, variable=political, text="Political", onvalue=True, offvalue=False)
+my_cb_racist = tk.Checkbutton(my_cb_subframe, variable=racist, text="Racist", onvalue=True, offvalue=False)
+my_cb_sexist = tk.Checkbutton(my_cb_subframe, variable=sexist, text="Sexist", onvalue=True, offvalue=False)
+my_cb_explicit = tk.Checkbutton(my_cb_subframe, variable=explicit, text="Explicit", onvalue=True, offvalue=False)
 
 # positioning
 # Background:
@@ -228,7 +234,7 @@ my_btn_dislike.grid(row=1, column=2)
 my_label_own_joke.grid(row=0, column=0)
 my_entry_own_joke.grid(row=0,column=1)
 my_btn_submit.grid(row=2, column=1)
-drop_submit.grid(row = 0, column=2)
+drop_submit.grid(row = 0, column=2, padx=90)
 # Checkboxes
 my_cb_nsfw.grid(row=0, column=0)
 my_cb_religious.grid(row=0, column=1)
