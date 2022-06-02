@@ -7,13 +7,10 @@ Gui to interakt with the User
     license: free
 """
 
-from time import sleep
 import tkinter as tk
 from PIL import Image, ImageTk
-from numpy import var
 import JokeAPI 
 import DatabaseAPI
-import os
 
 # variables to handle the acces to same jokes at different places
 _current_joke = JokeAPI.get_joke("Any")[0]
