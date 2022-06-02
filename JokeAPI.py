@@ -11,8 +11,13 @@ Does basic POST and GET Requests
 import requests
 import json
 
-# Declaring Variables for getting and submitting Jokes
+#### IMPORTANT ####
+# Submitting Jokes is currently disabled by the Server-Admin
+# The Serverresponse is printed after every submitting try
+# Once the error is gone the real __submit_URL can be used
+# Testing __submit_URL will only return if submitting would have been successfull
 
+# Declaring Variables for getting and submitting Jokes
 __get_URL = 'https://v2.jokeapi.dev/joke/'
 __submit_URL = 'https://v2.jokeapi.dev/submit?dry-run' # Use for Testing
 # __submit_URL = 'https://v2.jokeapi.dev/submit        # Use for real Application

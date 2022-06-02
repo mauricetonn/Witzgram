@@ -1,7 +1,7 @@
 """
 Gui to interakt with the User
 
-    author: Simon Klingler
+    author: Simon Klingler / Maurice Tonn
     date: 31.05.2022
     version: 0.0.1
     license: free
@@ -90,9 +90,19 @@ def get_joke():
     my_label_joke.configure(text = _current_joke)
 
 def submit_joke_db():
+    """
+        Submitts Joke to DB
+    Test:
+        1) Submit from GUI
+    """
     DatabaseAPI.add_joke(joke = my_entry_own_joke.get(), category=clicked_submit.get())
 def submit_joke_api():
-    print(nsfw.get())
+    """
+    Submitts Joke to JokeAPI
+
+    Test: 
+        1) Submit from GUI -> look at printed response -> error? (Server was disabled at 02.06.22)
+    """
     JokeAPI.submit_joke(category=clicked_submit.get(), joke=my_entry_own_joke.get(), nsfw=nsfw.get(),
      religious=religious.get(), political=political.get(), racist=racist.get(), sexist=sexist.get(), explicit=explicit.get(), language = "en")
 
@@ -127,6 +137,7 @@ def button_interaction(variant=""):
         print("Submit clicked")
         submit_joke_db()
         submit_joke_api()
+        
 
         
 
