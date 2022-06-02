@@ -168,6 +168,13 @@ def submit_joke(category, joke, language,  nsfw=True, religious= False, politica
     response = requests.post(url = __submit_URL, data = data)
     print("Server responded:", response.text)
 
+def get_jod(): # by https://jokes.one/api/joke/#python
+    url = 'https://api.jokes.one/jod'
+    headers = {'content-type': 'application/json'}
+    response = requests.get(url, headers=headers)
+    joke=response.json()['contents']['jokes'][0]['joke']['text']
+    return joke
+
 
 # response = submit_joke("Programming", "Wie viele Programmierer braucht man, um eine Gluehbirne zu wechseln? Keinen einzigen, ist ein Hardware-Problem!", "de")
 # print(response.text)

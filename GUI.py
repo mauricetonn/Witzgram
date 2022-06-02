@@ -13,8 +13,8 @@ import JokeAPI
 import DatabaseAPI
 
 # variables to handle the acces to same jokes at different places
-_current_joke = JokeAPI.get_joke("Any")[0]
-_current_category = JokeAPI.get_joke("Any")[1]
+_current_joke = "Joke Of The Day:\n " + JokeAPI.get_jod() # only 10 Times per Hour!!!
+_current_category = "Joke Of The Day"
 _current_likes = 0
 _favorites_rank = 0
 
