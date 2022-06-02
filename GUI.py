@@ -192,7 +192,7 @@ panel = tk.Label(my_frame, image = img)
 
 # components
 
-my_label_joke  = tk.Label(my_get_joke_subframe, text=_current_joke, width=72, height=5, wraplength=400)
+my_label_joke  = tk.Label(my_get_joke_subframe, text=_current_joke, width=50, height = 7, wraplength=400)
 my_btn_like = tk.Button(my_get_joke_subframe, text="like", command=lambda:button_interaction("like"))
 my_btn_dislike = tk.Button(my_get_joke_subframe, text="dislike", command=lambda:button_interaction("dislike")) 
 my_btn_next = tk.Button(my_get_joke_subframe, text="Next", command=lambda:button_interaction("Next")) 
