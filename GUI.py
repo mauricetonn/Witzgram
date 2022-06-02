@@ -9,6 +9,8 @@ Gui to interakt with the User
 
 import tkinter as tk
 from PIL import Image, ImageTk
+from numpy import var
+from sqlalchemy import column
 import JokeAPI 
 import DatabaseAPI
 
@@ -89,6 +91,11 @@ def get_joke():
         _favorites_rank += 1
     my_label_joke.configure(text = _current_joke)
 
+def submit_joke_db():
+    DatabaseAPI.add_joke(joke = my_entry_own_joke.get())
+def submit_joke_api():
+    pass
+
 def button_interaction(variant=""):
     """
     Handles the different Button Interactions
@@ -118,7 +125,9 @@ def button_interaction(variant=""):
         change_background()
     elif variant == "Submit":
         print("Submit clicked")
-        
+        submit_joke_db()
+        submit_joke_api()
+
         
 
 
@@ -132,6 +141,7 @@ main_window.maxsize(800, 400)
 
 my_frame = tk.Frame(main_window)
 my_frame.place(width=800, height=400)
+my_cb_subframe = tk.Frame(my_frame)
 
 # Basic DropDown-Setup by https://www.geeksforgeeks.org/dropdown-menus-tkinter/
 # Dropdown menu options 
@@ -177,6 +187,15 @@ my_btn_exit = tk.Button(my_frame, text="exit", command=main_window.quit)
 my_label_own_joke = tk.Label(my_frame, text="Submit your own Joke: ")
 my_entry_own_joke = tk.Entry(my_frame, bd=5, width=40)
 
+# CheckBoxes
+# nsfw=True, religious= False, political= True,racist= False,sexist= False,explicit= False)
+my_cb_nsfw = tk.Checkbutton(my_cb_subframe, text="NSFW", onvalue=1, offvalue=0)
+my_cb_religious = tk.Checkbutton(my_cb_subframe, text="Religious", onvalue=1, offvalue=0)
+my_cb_political = tk.Checkbutton(my_cb_subframe, text="Political", onvalue=1, offvalue=0)
+my_cb_racist = tk.Checkbutton(my_cb_subframe, text="Racist", onvalue=1, offvalue=0)
+my_cb_sexist = tk.Checkbutton(my_cb_subframe, text="Sexist", onvalue=1, offvalue=0)
+my_cb_explicit = tk.Checkbutton(my_cb_subframe, text="Explicit", onvalue=1, offvalue=0)
+
 # positioning
 panel.place(x=0, y=0, width=800, height=400)
 panel.lower()
@@ -187,9 +206,18 @@ my_btn_next.grid(row=1, column=2, pady=10)
 my_btn_dislike.grid(row=1, column=3, pady=10)
 my_label_own_joke.grid(row=2, column=1, pady = 10)
 my_entry_own_joke.grid(row=2,column=2, pady = 10)
-my_btn_submit.grid(row=3, column=2)
 
-my_btn_exit.grid(row=10, column=2)
+my_cb_subframe.grid(row=3, column=2 )
+my_cb_nsfw.grid(row=0, column=0)
+my_cb_religious.grid(row=0, column=1)
+my_cb_political.grid(row=0, column=2)
+my_cb_racist.grid(row=0, column=3)
+my_cb_sexist.grid(row=0, column=4)
+my_cb_explicit.grid(row=0, column=5)
+
+my_btn_submit.grid(row=4, column=2)
+
+my_btn_exit.grid(row=5, column=2)
 
 main_window.update()
 main_window.mainloop()
