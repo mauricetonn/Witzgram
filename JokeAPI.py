@@ -85,8 +85,9 @@ def get_joke(category = "Any"):
     res = requests.get(__req(category=category))
     res_json = json.loads(res.text)
 
-    joke = str(__convert(res_json)).replace("'", "`") # needed to replace ' with ` to make sure
-                                                      # uploading into DB would work
+    # needed to replace ' with ` to make sure uploading into DB would work
+    joke = str(__convert(res_json)).replace("'", "`") 
+    
     if res_json["error"] != True:
         category = res_json["category"]
     else:
