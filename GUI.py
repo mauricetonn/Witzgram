@@ -161,17 +161,21 @@ my_cb_subframe.grid(row=1, column=1)
 options = [
     "Any", "Misc", "Programming", "Dark", "Pun", "Spooky", "Christmas", "Favorites"
 ]
-  
+options_submit = options = [
+    "Misc", "Programming", "Dark", "Pun", "Spooky", "Christmas"
+]
 # datatype of menu text
 clicked = tk.StringVar()
+clicked_submit = tk.StringVar()
   
 # initial menu text
 clicked.set( "Any" )
+clicked_submit.set("Misc")
 
 # Create Dropdown menu
 #drop = tk.OptionMenu(my_get_joke_subframe , clicked , *options)
 drop = tk.OptionMenu(my_frame , clicked , *options)
-
+drop_submit = tk.OptionMenu(my_submit_joke_subframe, clicked_submit, *options_submit)
 
 # Images
 background_image_Any = Image.open('images/Fragezeichen.png').resize((800, 400))
@@ -224,6 +228,7 @@ my_btn_dislike.grid(row=1, column=2)
 my_label_own_joke.grid(row=0, column=0)
 my_entry_own_joke.grid(row=0,column=1)
 my_btn_submit.grid(row=2, column=1)
+drop_submit.grid(row = 0, column=2)
 # Checkboxes
 my_cb_nsfw.grid(row=0, column=0)
 my_cb_religious.grid(row=0, column=1)
