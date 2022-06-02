@@ -1,4 +1,3 @@
-from nis import cat
 import sqlite3 
 
 db_name = "witzeBank.db"

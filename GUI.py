@@ -99,7 +99,7 @@ def button_interaction(variant=""):
     """
     global _favorites_rank
     if variant == "":
-        print("btn_clicked")
+        print("btn_clicked -> Well this shouldnt have happend")
     elif variant == "dislike":
         print("dislike clicked")
         if clicked.get() != "Favorites":
@@ -118,6 +118,7 @@ def button_interaction(variant=""):
         change_background()
     elif variant == "Submit":
         print("Submit clicked")
+        
         
 
 
