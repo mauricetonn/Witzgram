@@ -159,14 +159,14 @@ clicked.set( "Any" )
 drop = tk.OptionMenu(my_frame , clicked , *options)
 
 # Images
-background_image_Any = Image.open('images/Fragezeichen.png').resize((800, 400))
-background_image_Misc = Image.open('images/misc.png').resize((800, 400))
-background_image_Programming = Image.open('images/programming1.jpg').resize((800, 400))
-background_image_Dark = Image.open('images/dark.jpg').resize((800, 400))
-background_image_Pun = Image.open('images/pun.png').resize((800, 400))
-background_image_Spooky = Image.open('images/Spooky.jpg').resize((800, 400))
-background_image_Christmas = Image.open('images/Christmas.jpg').resize((800, 400))
-background_image_Favorites = Image.open('images/favorites.jpeg').resize((800, 400))
+background_image_Any = Image.open('Witzgram/images/Fragezeichen.png').resize((800, 400))
+background_image_Misc = Image.open('Witzgram/images/misc.png').resize((800, 400))
+background_image_Programming = Image.open('Witzgram/images/programming1.jpg').resize((800, 400))
+background_image_Dark = Image.open('Witzgram/images/dark.jpg').resize((800, 400))
+background_image_Pun = Image.open('Witzgram/images/pun.png').resize((800, 400))
+background_image_Spooky = Image.open('Witzgram/images/Spooky.jpg').resize((800, 400))
+background_image_Christmas = Image.open('Witzgram/images/Christmas.jpg').resize((800, 400))
+background_image_Favorites = Image.open('Witzgram/images/favorites.jpeg').resize((800, 400))
 
 # Basic Label Background SetUp by https://www.educba.com/tkinter-background-image/
 # PhotoImage class is used to add image to widgets, icons etc

@@ -8,7 +8,6 @@ Does basic POST and GET Requests
     license: free
 """
 
-from nis import cat
 import requests
 import json
 
