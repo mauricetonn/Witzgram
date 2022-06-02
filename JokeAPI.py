@@ -8,6 +8,7 @@ Does basic POST and GET Requests
     license: free
 """
 
+from nis import cat
 import requests
 import json
 
@@ -52,14 +53,20 @@ def __convert(response):
         1) joke = __convert(res_json) (res_json with setup and delivery) should always return a single string
         2) joke = __convert(res_json) (res_json with joke) should always return a single string
     """
-    print(response)
-    if response["type"] == "twopart":
-        setup = response["setup"]
-        delivery = response["delivery"]
-        joke = setup + "\n" + delivery
-    elif response["type"] == "single":
-        joke = response["joke"]
-    return joke
+    # print(response)
+
+    try:
+        if response["type"] == "twopart":
+            setup = response["setup"]
+            delivery = response["delivery"]
+            joke = setup + "\n" + delivery
+        elif response["type"] == "single":
+            joke = response["joke"]
+        return joke
+    finally:
+        if response["error"] == True:
+            return response["message"]
+    
 
 def get_joke(category = "Any"):
     """
@@ -79,7 +86,10 @@ def get_joke(category = "Any"):
     res_json = json.loads(res.text)
 
     joke = __convert(res_json)
-    category = res_json["category"]
+    if res_json["error"] != True:
+        category = res_json["category"]
+    else:
+        category = "ERROR-MESSAGE"
 
     return joke, category
 
@@ -121,9 +131,9 @@ def __payload(category, joke, language, nsfw=True, religious= False, political= 
     },
     "lang": language
     }
-    print(data)
+    # print(data)
     ready_data = json.dumps(data)
-    print(ready_data)
+    # print(ready_data)
     return ready_data
 
 
