@@ -36,6 +36,12 @@ main_window.geometry("800x400")
 main_window.minsize(800, 400)
 main_window.maxsize(800, 400)
 
+# images 
+
+background_image_kategory = tk.PhotoImage(file="C:\DHBW\Theorie Semester 4\Programmieren mit Python B\Projekt\Witzgram\images\Fragezeichen.png") 
+background_label = tk.Label(main_window, image=background_image_kategory)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)  # bild als Hintergrund eifügen 
+
 my_frame = tk.Frame(main_window)
 my_frame.grid()
 
@@ -67,10 +73,7 @@ label = tk.Label( my_frame , text = " ")
 my_label = tk.Label(my_frame, text="Gib deinen eigenen Witz ein: ")
 input = tk.Entry(my_frame, bd=5, width=40)
 
-# images (Müssen noch heruntergeladen werden, am besten ist ein Ordner in diesem Projekt der images heißt oder so)
 
-#background_image_kategory = tk.PhotoImage(file=path_to_image) # beliebiger Pfad zu einem Bild !!! PFAD NOCH NICHT EINGEFÜGT !!!
-#background_label = tk.Label(my_frame, image=background_image_kategory)
 
    # oder man kann für jede Kategory ein Hintergrund erstellen:
 # background_image_any = tk.PhotoImage(file=path_to_image)
@@ -93,7 +96,7 @@ input = tk.Entry(my_frame, bd=5, width=40)
 
 # positioning
 # my_witz.grid(row=1, column=2, columnspan=2)
-#background_label.place(x=0, y=0, relwidth=1, relheight=1)  # bild als Hintergrund eifügen !!! NOCH NICHT GETEStET!!!
+
 my_witz.grid(row=0, column=2, pady=20)
 my_btn_1.grid(row=1, column=1, pady=10)
 my_btn_2.grid(row=1, column=3, pady=10)
