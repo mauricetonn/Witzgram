@@ -14,19 +14,46 @@ from turtle import width
 import JokeAPI 
 import DatabaseAPI
 
-def current():
-    joke_array = JokeAPI.get_joke(clicked.get())
-    return joke_array
+current_joke = JokeAPI.get_joke("Any")[0]
+current_category = JokeAPI.get_joke("Any")[1]
+current_likes = 0
+favorites_rank = 0
+
+def set_api_current():
+    global current_joke, current_category
+    current = JokeAPI.get_joke(clicked.get())
+    current_joke = current[0]
+    current_category = current[1]
+
+def set_db_current(rank):
+    global current_joke, current_category, current_likes
+    current = DatabaseAPI.get_jokes(rank=rank)
+    current_joke = current[0]
+    current_category = current[1]
+    current_likes = current[2]
+
 def button_interaction(variant=""):
+    global favorites_rank
     if variant == "":
         print("btn_clicked")
     elif variant == "disliked":
         print("disliked clicked")
     elif variant == "liked":
         print("liked clicked")
-        DatabaseAPI.add_joke(joke = current()[0], category = current()[1])
+        if clicked.get() != "Favorites":
+            DatabaseAPI.add_joke(joke = current_joke, category = current_category)
+        else:
+            DatabaseAPI.like_inkrement(joke = current_joke, category=current_category, likes = current_likes)
     elif variant == "newJoke":
-        my_witz.configure(text = current()[0])
+        if clicked.get() != "Favorites":
+            set_api_current()
+            favorites_rank = 0
+        else:
+            if current_category == "EOF" or current_category == 'EOF':
+                favorites_rank = 0
+            set_db_current(favorites_rank)
+            favorites_rank += 1
+        my_witz.configure(text = current_joke)
         if clicked.get() == "Any":
             img = ImageTk.PhotoImage(background_image_any)
         elif clicked.get() == "Misc":
@@ -41,6 +68,8 @@ def button_interaction(variant=""):
             img = ImageTk.PhotoImage(background_image_Spooky)
         elif clicked.get() == "Christmas":
             img = ImageTk.PhotoImage(background_image_Christmas)
+        else:
+            img = ImageTk.PhotoImage(background_image_any)
         panel.configure(image = img)         
         panel.image = img
     elif variant == "myownJoke":
@@ -67,7 +96,7 @@ my_frame.place(width=800, height=400)
 
 # Dropdown menu options
 options = [
-    "Any", "Misc", "Programming", "Dark", "Pun", "Spooky", "Christmas"
+    "Any", "Misc", "Programming", "Dark", "Pun", "Spooky", "Christmas", "Favorites"
 ]
   
 # datatype of menu text
@@ -96,7 +125,7 @@ panel = tk.Label(my_frame, image = img)
 
 # components
 
-my_witz  = tk.Label(my_frame, text=JokeAPI.get_joke()[0], wraplength=400 )
+my_witz  = tk.Label(my_frame, text=current_joke, wraplength=400 )
 my_btn_1 = tk.Button(my_frame, text="liked", command=lambda:button_interaction("liked"))
 my_btn_2 = tk.Button(my_frame, text="disliked", command=lambda:button_interaction("disliked")) 
 my_btn_3 = tk.Button(my_frame, text="neuer Witz", command=lambda:button_interaction("newJoke")) 
