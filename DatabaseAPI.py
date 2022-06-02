@@ -45,7 +45,7 @@ def like_dekrement(joke, category, likes):
     if(likes > 1):
         delete_old_joke = f"DELETE FROM {table_name} WHERE w_text = '{joke}'"
         my_db_cursor.execute(delete_old_joke)
-        insert_new_joke = f"INSERT INTO {table_name} ('w_kategory', 'w_text', 'w_like') VALUES ('{category}', '{joke}', {likes + 1})"
+        insert_new_joke = f"INSERT INTO {table_name} ('w_kategory', 'w_text', 'w_like') VALUES ('{category}', '{joke}', {likes - 1})"
         my_db_cursor.execute(insert_new_joke)
     else:
         delete_old_joke = f"DELETE FROM {table_name} WHERE w_text = '{joke}'"
