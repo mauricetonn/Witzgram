@@ -1,0 +1,7 @@
+name==version
+
+tkinter==?
+pillow==9.1.0
+sqlite3==?
+requests==2.27.1
+json==?
