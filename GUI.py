@@ -144,10 +144,13 @@ def button_interaction(variant=""):
         DatabaseAPI.db_commit()
         main_window.quit()
 
-        
-
-        
-
+def __CancelCommand(event=None):
+    """
+    Ein Command der nichts macht, wird benötigt um den normalen Exit Knopf zu überschreiben
+    Test:
+        1) Press normal Exit Button -> Nothing happens
+    """
+    pass
 
 # gui setup
 main_window = tk.Tk()
@@ -156,6 +159,9 @@ main_window.geometry("800x400")
 
 main_window.minsize(800, 400)
 main_window.maxsize(800, 400)
+
+# beim drücken des X-Knopfes oben rechts passiert nichts
+main_window.protocol('WM_DELETE_WINDOW', __CancelCommand)
 
 my_frame = tk.Frame(main_window)
 my_frame.place(x=0, y=0, width=800, height=400)
@@ -217,6 +223,7 @@ my_btn_next = tk.Button(my_get_joke_subframe, text="Next", command=lambda:button
 my_btn_submit = tk.Button(my_submit_joke_subframe, text="Submit", command=lambda:button_interaction("Submit"))
 #my_btn_exit = tk.Button(my_frame, text="exit", command=main_window.quit)
 my_btn_exit = tk.Button(my_frame, text="exit", command=lambda:button_interaction("exit"))
+
 # my_label_input = tk.Label( my_frame , text = " ")
 my_label_own_joke = tk.Label(my_submit_joke_subframe, text="Submit your own Joke: ")
 my_entry_own_joke = tk.Entry(my_submit_joke_subframe, bd=5, width=40)
