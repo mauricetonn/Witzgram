@@ -25,12 +25,9 @@ def setup():
         1) run setup() -> witzeBank.db should be created
     """
     global db_name, my_db_connection, table_name, my_db_cursor
-    if os.path.isfile("witzeBank.db"):
-        pass
-    else:
-        table_fields = "w_kategory VARCHAR(30), w_title VARCHAR(50), w_text VARCHAR(255), w_like INTEGER"
-        my_create_sql = f"CREATE TABLE {table_name} ({table_fields})"
-        my_db_cursor.execute(my_create_sql)
+    table_fields = "w_kategory VARCHAR(30), w_title VARCHAR(50), w_text VARCHAR(255), w_like INTEGER"
+    my_create_sql = f"CREATE TABLE {table_name} ({table_fields})"
+    my_db_cursor.execute(my_create_sql)
 
 def get_jokes(rank):
     """
