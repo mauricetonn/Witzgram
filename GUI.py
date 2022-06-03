@@ -9,7 +9,6 @@ Gui to interakt with the User
 
 import tkinter as tk
 from PIL import Image, ImageTk
-from numpy import var
 import JokeAPI 
 import DatabaseAPI
 
