@@ -9,6 +9,7 @@ Gui to interakt with the User
 
 import tkinter as tk
 from PIL import Image, ImageTk
+from numpy import var
 import JokeAPI 
 import DatabaseAPI
 
@@ -139,6 +140,10 @@ def button_interaction(variant=""):
         print("Submit clicked")
         submit_joke_db()
         submit_joke_api()
+    elif variant == "exit":
+        DatabaseAPI.db_commit()
+        main_window.quit()
+
         
 
         
@@ -210,7 +215,8 @@ my_btn_like = tk.Button(my_get_joke_subframe, text="like", command=lambda:button
 my_btn_dislike = tk.Button(my_get_joke_subframe, text="dislike", command=lambda:button_interaction("dislike")) 
 my_btn_next = tk.Button(my_get_joke_subframe, text="Next", command=lambda:button_interaction("Next")) 
 my_btn_submit = tk.Button(my_submit_joke_subframe, text="Submit", command=lambda:button_interaction("Submit"))
-my_btn_exit = tk.Button(my_frame, text="exit", command=main_window.quit)
+#my_btn_exit = tk.Button(my_frame, text="exit", command=main_window.quit)
+my_btn_exit = tk.Button(my_frame, text="exit", command=lambda:button_interaction("exit"))
 # my_label_input = tk.Label( my_frame , text = " ")
 my_label_own_joke = tk.Label(my_submit_joke_subframe, text="Submit your own Joke: ")
 my_entry_own_joke = tk.Entry(my_submit_joke_subframe, bd=5, width=40)

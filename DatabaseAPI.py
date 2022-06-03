@@ -103,4 +103,7 @@ def like_dekrement(joke, category, likes):
         delete_old_joke = f"DELETE FROM {table_name} WHERE w_text = '{joke}'"
         my_db_cursor.execute(delete_old_joke)
 
+def db_commit():
+    my_db_connection.commit()
+
 setup()
