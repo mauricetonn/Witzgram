@@ -1,7 +1,7 @@
 """
 Used to setup and interact with Database
 
-    author: Maurice Tonn
+    author: Maurice Tonn / Simon Klingler
     date: 28.05.2022
     version: 0.0.1
     license: free
@@ -104,6 +104,15 @@ def like_dekrement(joke, category, likes):
         my_db_cursor.execute(delete_old_joke)
 
 def db_commit():
+    """
+    Commits Data from Journal to DB
+
+    Test:
+        1) Data in DB after restart of Gui
+    """
     my_db_connection.commit()
 
-setup()
+if os.path.isfile("witzeBank.db"):
+    pass
+else:
+    setup()

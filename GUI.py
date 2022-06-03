@@ -14,10 +14,14 @@ import JokeAPI
 import DatabaseAPI
 
 # variables to handle the acces to same jokes at different places
-#_current_joke = "Joke Of The Day:\n " + JokeAPI.get_jod() # only 10 Times per Hour!!!
-#_current_category = "Joke Of The Day"
-_current_joke = JokeAPI.get_joke()[0]
-_current_category = JokeAPI.get_joke()[1]
+try:
+    _current_joke = "Joke Of The Day:\n " + JokeAPI.get_jod() # only 10 Times per Hour!!!
+    _current_category = "Joke Of The Day"
+except:
+    current = JokeAPI.get_joke()
+    _current_joke = current[0]
+    _current_category = current[1]
+
 _current_likes = 0
 _favorites_rank = 0
 
@@ -146,7 +150,7 @@ def button_interaction(variant=""):
 
 def __CancelCommand(event=None):
     """
-    Ein Command der nichts macht, wird benötigt um den normalen Exit Knopf zu überschreiben
+    A Command that does nothing
     Test:
         1) Press normal Exit Button -> Nothing happens
     """
