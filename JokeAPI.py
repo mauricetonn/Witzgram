@@ -90,7 +90,7 @@ def get_joke(category = "Any"):
     res_json = json.loads(res.text)
 
     # needed to replace ' with ` to make sure uploading into DB would work
-    joke = str(__convert(res_json)).replace("'", "`") 
+    joke = str(__convert(res_json)).replace("'", "´") 
     
     if res_json["error"] != True:
         category = res_json["category"]
@@ -162,19 +162,23 @@ def submit_joke(category, joke, language,  nsfw=True, religious= False, politica
         requests.models.Response: Response from the POST Request
     Tests:
         1) response = submit_joke("Programming", "Wie viele Programmierer braucht man, um eine Gluehbirne zu wechseln? Keinen einzigen, ist ein Hardware-Problem!", "de") should return Code: 201
-        2) 
+        2) do same with variants of category and jokes
     """
     data = __payload(category, joke, language,  nsfw=True, religious= False, political= True,racist= False,sexist= False,explicit= False)
     response = requests.post(url = __submit_URL, data = data)
     print("Server responded:", response.text)
 
 def get_jod(): # by https://jokes.one/api/joke/#python
+    """
+    Get Jokes of the Day by jokes.one api
+    Returns:
+        str: Joke Text
+    Test:  
+        1) run print(get_jod()) -> Joke of the day should be printed
+        2) run again -> joke should be the same
+    """
     url = 'https://api.jokes.one/jod'
     headers = {'content-type': 'application/json'}
     response = requests.get(url, headers=headers)
     joke=response.json()['contents']['jokes'][0]['joke']['text']
     return joke
-
-
-# response = submit_joke("Programming", "Wie viele Programmierer braucht man, um eine Gluehbirne zu wechseln? Keinen einzigen, ist ein Hardware-Problem!", "de")
-# print(response.text)

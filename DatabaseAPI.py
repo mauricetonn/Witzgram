@@ -52,15 +52,22 @@ def get_jokes(rank):
 def add_joke(joke, category = 'Misc'):
     """
     Adds a new Joke to Database, doesnt check if its already in the Database
-
+    # may be TODO for future programming
     Args:
         joke (str): Joke Text
         category (str, optional): sets the Category of the Joke. Defaults to 'Misc'.
     Test:
         1) add_joke("joke") -> Code under "Testing" should show the new Joke in the DB
+        2) add_joke(joke="joke", category="Programming") -> Code under Testing should show joke with given Category
     """
     my_insert_sql = f"INSERT INTO {table_name} ('w_kategory', 'w_text', 'w_like') VALUES ('{category}', '{joke}', 1)"
-    my_db_cursor.execute(my_insert_sql)
+    try:
+        my_db_cursor.execute(my_insert_sql)
+    except:
+        table_fields = "w_kategory VARCHAR(30), w_title VARCHAR(50), w_text VARCHAR(255), w_like INTEGER"
+        my_create_sql = f"CREATE TABLE {table_name} ({table_fields})"
+        my_db_cursor.execute(my_create_sql)
+        my_db_cursor.execute(my_insert_sql)
     # Testing:
     #my_db_cursor.execute(f"SELECT w_text, w_kategory, w_like FROM {table_name} ORDER BY 'w_like'")
     #jokes = my_db_cursor.fetchall()
@@ -112,6 +119,7 @@ def db_commit():
     """
     my_db_connection.commit()
 
+# Set up DB
 if os.path.isfile("witzeBank.db"):
     pass
 else:

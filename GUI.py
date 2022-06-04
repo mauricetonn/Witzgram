@@ -1,5 +1,5 @@
 """
-Gui to interakt with the User
+GUI to interakt with the User
 
     author: Simon Klingler / Maurice Tonn
     date: 31.05.2022
@@ -14,9 +14,11 @@ import DatabaseAPI
 
 # variables to handle the acces to same jokes at different places
 try:
-    _current_joke = "Joke Of The Day:\n " + JokeAPI.get_jod() # only 10 Times per Hour!!!
+    _current_joke = "Joke Of The Day:\n " # + JokeAPI.get_jod().replace("'", "´").replace("\n","") # only 10 Times per Hour!!!
     _current_category = "Joke Of The Day"
+    print(_current_joke)
 except:
+    print("Maximum Amount of API-Request per Hour Reached. Joke is now random")
     current = JokeAPI.get_joke()
     _current_joke = current[0]
     _current_category = current[1]
@@ -83,6 +85,9 @@ def change_background():
 def get_joke():
     """
     Handles DatabaseAPI / JokeAPI interaction to change current Joke depending on current category
+    Tests:
+        1) get_joke() while in "Favorites" should set Joke from the Database as _current_joke
+        2) get_joke() while not in "Favorites" should set Joke from API as _current_joke
     """
     global _favorites_rank, _current_category
     if clicked.get() != "Favorites":
@@ -99,7 +104,7 @@ def submit_joke_db():
     """
         Submitts Joke to DB
     Test:
-        1) Submit from GUI
+        1) Place Text in GUI -> set Category -> Submit -> Joke should be in Database
     """
     DatabaseAPI.add_joke(joke = my_entry_own_joke.get(), category=clicked_submit.get())
 def submit_joke_api():
@@ -126,15 +131,22 @@ def button_interaction(variant=""):
     elif variant == "dislike":
         print("dislike clicked")
         if clicked.get() != "Favorites":
-            pass                         # since you didnt like it
+            pass
         else:
             DatabaseAPI.like_dekrement(joke = _current_joke, category = _current_category, likes = _current_likes)
+            if _current_likes == 1:
+                _favorites_rank -= 1
+            get_joke()
+            change_background()
+            
     elif variant == "like":
         print("like clicked")
         if clicked.get() != "Favorites":
             DatabaseAPI.add_joke(joke = _current_joke, category = _current_category)
         else:
             DatabaseAPI.like_inkrement(joke = _current_joke, category = _current_category, likes = _current_likes)
+        get_joke()
+        change_background()
     elif variant == "Next":
         print("Next")
         get_joke()
