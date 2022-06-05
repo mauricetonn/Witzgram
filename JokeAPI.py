@@ -75,6 +75,7 @@ def __convert(response):
 def get_joke(category = "Any"):
     """
     Function for getting a Joke from a Category.
+    LIMIT OF 120 Jokes per Minute
 
     Args:
         category (str): Sets the joke-category. Avaiable Categories: "Any", "Misc", "Programming", "Dark", "Pun", "Spooky", "Christmas". Defaults to "Any".
