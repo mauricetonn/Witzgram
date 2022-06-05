@@ -45,7 +45,7 @@ def get_jokes(rank):
     my_db_cursor.execute(f"SELECT w_text, w_kategory, w_like FROM {table_name} ORDER BY w_like DESC")
     jokes = my_db_cursor.fetchall()
     if rank >= len(jokes):
-        return ("END OF FAVORITES - Press 'new Joke' to rebegin", "EOF", 0)
+        return ("END OF FAVORITES - Press 'Next' to rebegin", "EOF", 0)
     print("ORDER:", jokes)
     return jokes[rank]
 
