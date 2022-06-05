@@ -17,7 +17,7 @@ table_name = "witz"
 
 my_db_cursor = my_db_connection.cursor()
 
-def setup():
+def __setup():
     """
     Used to setup the database when starting Witzgram
 
@@ -123,4 +123,4 @@ def db_commit():
 if os.path.isfile("witzeBank.db"):
     pass
 else:
-    setup()
+    __setup()
