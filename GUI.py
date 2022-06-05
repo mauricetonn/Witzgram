@@ -14,7 +14,7 @@ import DatabaseAPI
 
 # variables to handle the acces to same jokes at different places
 try:
-    _current_joke = "Joke Of The Day:\n " # + JokeAPI.get_jod().replace("'", "´").replace("\n","") # only 10 Times per Hour!!!
+    _current_joke = "Joke Of The Day:\n " + JokeAPI.get_jod().replace("'", "´").replace("\n","") # only 10 Times per Hour!!!
     _current_category = "Joke Of The Day"
     print(_current_joke)
 except:
