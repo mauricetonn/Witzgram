@@ -131,7 +131,7 @@ def button_interaction(variant=""):
     elif variant == "dislike":
         print("dislike clicked")
         if clicked.get() != "Favorites":
-            pass
+            get_joke()
         else:
             DatabaseAPI.like_dekrement(joke = _current_joke, category = _current_category, likes = _current_likes)
             if _current_likes == 1:
