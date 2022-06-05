@@ -17,7 +17,7 @@ Für das übergeben des Witzes an den Webservice müssen einige Tags abhängig v
 Um den Witz speichern zu können braucht dieser eine Kategory
 ## Exit
 Der Exit-Button bietet die Möglichkeit die aktuell in der lokalen DB befindlichen Witze persistent zu speichern, sodass diese bei erneutem Programmaufruf zur Verfügung stehen.
-Um Datenverluste zu vermeiden ist der "Fenser schließen"-Knopf deaktiviert.
+Um Datenverluste zu vermeiden ist der "Fenster schließen"-Knopf deaktiviert.
 
 # Getting Started
 Repsitory in lokales Dateisystem pullen.
